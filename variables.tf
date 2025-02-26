@@ -54,7 +54,11 @@ variable "edition" {
   type        = string
   default     = "ENTERPRISE"
 }
-
+variable "data_cache_enabled" {
+  type        = bool
+  description = "Whether data cache is enabled for the instance. Defaults to false. Feature is only available for ENTERPRISE_PLUS tier and for "
+  default     = false
+}
 variable "zone" {
   type        = string
   description = "The zone for the master instance."
