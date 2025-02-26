@@ -120,7 +120,12 @@ resource "google_sql_database_instance" "default" {
         value = lookup(database_flags.value, "value", null)
       }
     }
-
+    dynamic "data_cache_config" {
+      for_each = var.edition == "ENTERPRISE_PLUS" && var.data_cache_enabled ? ["cache_enabled"] : []
+      content {
+        data_cache_enabled = var.data_cache_enabled
+      }
+    }
     dynamic "active_directory_config" {
       for_each = var.active_directory_config
       content {
