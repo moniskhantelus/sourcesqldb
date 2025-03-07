@@ -300,13 +300,13 @@ variable "encryption_key_name" {
 variable "deletion_protection" {
   description = "Used to block Terraform from deleting a SQL Instance."
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "deletion_protection_enabled" {
   description = "Enables protection of an instance from accidental deletion protection across all surfaces (API, gcloud, Cloud Console and Terraform)."
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "time_zone" {
@@ -366,12 +366,12 @@ variable "enable_default_user" {
 variable "read_replica_deletion_protection" {
   description = "Used to block Terraform from deleting replica SQL Instances."
   type        = bool
-  default     = true
+  default     = false
 }
 variable "read_replica_deletion_protection_enabled" {
   description = "Enables protection of replica instance from accidental deletion across all surfaces (API, gcloud, Cloud Console and Terraform)."
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "read_replica_name_suffix" {
@@ -411,6 +411,15 @@ variable "read_replicas" {
   }))
   default = []
 }
-
-
-
+variable "query_insights_enabled" {
+  description = "Enable Query Insights for Cloud SQL instance"
+  type        = bool
+}
+variable "query_string_length" {
+  description = "Query String length for Query insights"
+type = number
+}
+variable "sqlauditbucket"{
+  description = "Bucket location for SQL Audit bucket"
+  type = string
+}
