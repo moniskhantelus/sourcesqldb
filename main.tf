@@ -62,6 +62,13 @@ resource "google_sql_database_instance" "default" {
     availability_type           = var.availability_type
     deletion_protection_enabled = var.deletion_protection_enabled
     connector_enforcement       = local.connector_enforcement
+
+    dynamic "insights_config" {
+      for_each = var.query_insights_enabled ? [1] : []
+      content {
+        query_string_length    = var.query_string_length
+      }
+    }
     dynamic "backup_configuration" {
       for_each = var.backup_configuration.enabled ? [var.backup_configuration] : []
       content {
@@ -126,6 +133,11 @@ resource "google_sql_database_instance" "default" {
         data_cache_enabled = var.data_cache_enabled
       }
     }
+    sql_server_audit_config {
+            bucket = var.sqlauditbucket
+            retention_interval = "86400s"
+            upload_interval = "900s"
+        }
     dynamic "active_directory_config" {
       for_each = var.active_directory_config
       content {
